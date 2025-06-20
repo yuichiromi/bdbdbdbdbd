@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>Beni Seviyon mu :3</title>
+<style>
+  body {
+    background: #b496c9;
+    font-family: 'Comic Sans MS', cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  #gif {
+    width: 200px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    color: #612525;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  .buttons {
+    display: flex;
+    gap: 40px;
+    position: relative;
+    width: 300px;
+    height: 50px;
+  }
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: transform 0.3s ease, left 0.3s ease, top 0.3s ease;
+    user-select: none;
+    z-index: 2;
+  }
+  #yes {
+    background-color: #f2d1f3;
+    color: white;
+    left: 0;
+    transform: scale(1);
+  }
+  #no {
+    background-color: #fff6f6;
+    color: #444;
+    left: 150px;
+  }
+  #message {
+    margin-top: 40px;
+    color: #ffffff;
+    font-size: 22px;
+    min-height: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .heart {
+    position: fixed;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
+    animation-name: fall-rotate;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  @keyframes fall-rotate {
+    0% {
+      transform: translateY(0) rotate(0deg) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg) scale(0.3);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<img src="https://media1.tenor.com/m/a4oMmpcZT_AAAAAC/2.gif" alt="GIF" width="250" />
+
+<h1>Beni seviyon mu :3 </h1>
+
+<div class="buttons">
+  <button id="yes">Evet💘</button>
+  <button id="no">Hayır</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+  const yesBtn = document.getElementById('yes');
+  const noBtn = document.getElementById('no');
+  const message = document.getElementById('message');
+
+  let hayirCount = 0;
+  let yesScale = 1;
+
+  const containerWidth = 300;
+  const containerHeight = 50;
+
+  noBtn.addEventListener('mouseover', () => {
+    hayirCount++;
+
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const minX = 100;
+    const maxX = containerWidth - btnWidth + 40;
+    const maxY = containerHeight - btnHeight + 20;
+
+    const x = Math.min(Math.random() * maxX + minX, window.innerWidth - btnWidth - 10);
+    const y = Math.min(Math.random() * maxY, window.innerHeight - btnHeight - 10);
+
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+
+    yesScale += 0.1;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    if (hayirCount >= 15) {
+      message.textContent = "ok sevme beni git bbbb.";
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+    }
+  });
+
+  yesBtn.addEventListener('click', () => {
+    message.textContent = 'Ben de seni cok seviyom askim evlenek mi!';
+    createHeartRain();
+  });
+
+  function createHeartRain() {
+    const heartImg = 'https://i.pinimg.com/736x/6c/35/4a/6c354a5f5910eb8cca77ac335b471fe7.jpg';
+
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('img');
+      heart.src = heartImg;
+      heart.classList.add('heart');
+
+      const size = Math.random() * 25 + 15;
+      heart.style.width = `${size}px`;
+
+      heart.style.left = Math.random() * window.innerWidth + 'px';
+      heart.style.top = '-70px';
+
+      const duration = Math.random() * 1.5 + 1.5;
+      heart.style.animationDuration = duration + 's';
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+  }
+</script>
+
+</body>
+</html>
